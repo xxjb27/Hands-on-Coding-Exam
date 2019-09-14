@@ -7,50 +7,9 @@
 //
 
 import UIKit
-/*private var __maxLengths = [UITextField: Int]()
-extension UITextField {
-    @IBInspectable var maxLength: Int {
-        get {
-            guard let l = __maxLengths[self] else {
-                return 150 // (global default-limit. or just, Int.max)
-            }
-            return l
-        }
-        set {
-            __maxLengths[self] = newValue
-            addTarget(self, action: #selector(fix), for: .editingChanged)
-        }
-    }
-    @objc func fix(textField: UITextField) {
-        let t = textField.text
-        textField.text = t?.safelyLimitedTo(length: maxLength)
-    }
-}
 
-extension String
-{
-    func safelyLimitedTo(length n: Int)->String {
-        let c = self.characters?
-        if (c.count <= n) { return self }
-        return String( Array(c).prefix(upTo: n) )
-    }
-}*/
-
-let gender = ["Female" , "Male"]
+let gender = ["Female","Male"]
 class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return gender[row]
-    }
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return gender.count
-    }
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        lblGender.text = gender[row]
-    }
     
     
     @IBOutlet weak var datePicker: UIDatePicker!
@@ -80,14 +39,46 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegat
         
         lblGender.text = ""
         
+        
         datePicker.setDate(Date(), animated: false)
+        
+        //pickerGender.selectRow(1, inComponent: 0, animated: true)
         
         let tapRecognizer = UITapGestureRecognizer()
         tapRecognizer.addTarget(self, action: #selector(ViewController.didTapView))
         self.view.addGestureRecognizer(tapRecognizer)
+        
+        if lblGender.text == "" {
+            let alertController = UIAlertController(title: "Warning!", message: "Gender should not be empty", preferredStyle: .alert)
+            // let generation:String = String(txtGeneration.text!)!
+            
+            
+            // Create ok alert action
+            let OKAction = UIAlertAction(title: "OK", style: .default) { action in
+                print("Ok button is clicked")
+            }
+            // Add the ok alert action to your alert dialog
+            alertController.addAction(OKAction)
+            
+            // Show the alert action
+            self.present(alertController, animated: true) { }
+        }
     }
     @objc func didTapView(){
         self.view.endEditing(true)
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return gender[row]
+    }
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return gender.count
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+         lblGender.text = "\(gender[row])"
     }
     
     @IBAction func btnFirstName(_ sender: UITextField) {
@@ -280,8 +271,8 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegat
         age = ageYears!
         //5 - display age in label
         self.lblAge.text = "\(ageYears!)"
-
-        if lblAge.text == "0" && lblAge.text == "1" && lblAge.text == "2" && lblAge.text == "3" && lblAge.text == "4" && lblAge.text == "5" && lblAge.text == "6" && lblAge.text == "7" && lblAge.text == "8" && lblAge.text == "9" && lblAge.text == "10" && lblAge.text == "11" && lblAge.text == "12" && lblAge.text == "13" && lblAge.text == "14" && lblAge.text == "15" && lblAge.text == "16" && lblAge.text == "17"{
+        
+        if ageYears! <= 17{
             let alertController = UIAlertController(title: "Alert!", message: "Age should be 18 above.", preferredStyle: .alert)
             // let generation:String = String(txtGeneration.text!)!
             
@@ -298,6 +289,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegat
             self.present(alertController, animated: true) { }
         }
     }
+    
     
     
     
