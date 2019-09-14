@@ -276,10 +276,29 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegat
         let ageYears = components.year
         let ageMonths = components.month
         let ageDays = components.day
-        
+        var age = 0
+        age = ageYears!
         //5 - display age in label
-        self.lblAge.text = "\(ageYears!) years old"
+        self.lblAge.text = "\(ageYears!)"
+
+        if lblAge.text == "0" && lblAge.text == "1" && lblAge.text == "2" && lblAge.text == "3" && lblAge.text == "4" && lblAge.text == "5" && lblAge.text == "6" && lblAge.text == "7" && lblAge.text == "8" && lblAge.text == "9" && lblAge.text == "10" && lblAge.text == "11" && lblAge.text == "12" && lblAge.text == "13" && lblAge.text == "14" && lblAge.text == "15" && lblAge.text == "16" && lblAge.text == "17"{
+            let alertController = UIAlertController(title: "Alert!", message: "Age should be 18 above.", preferredStyle: .alert)
+            // let generation:String = String(txtGeneration.text!)!
+            
+            
+            // Create ok alert action
+            let OKAction = UIAlertAction(title: "OK", style: .default) { action in
+                print("Ok button is clicked")
+            }
+            // Add the ok alert action to your alert dialog
+            alertController.addAction(OKAction)
+            
+            
+            // Show the alert action
+            self.present(alertController, animated: true) { }
+        }
     }
+    
     
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
